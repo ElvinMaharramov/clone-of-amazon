@@ -10,13 +10,17 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@stripe/stripe-js": "^4.3.0",
     "next": "^14.2.5",
+    "next-auth": "^4.24.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "react-redux": "^9.1.2",
     "react-responsive-carousel": "^3.2.23",
-    "sharp": "^0.33.4"
+    "redux-persist": "^6.0.0",
+    "sharp": "^0.33.4",
+    "stripe": "^16.8.0"
   },
   "devDependencies": {
     "@types/node": "^20",

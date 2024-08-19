@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ProductProps } from '../../../type';
-import { addToCart } from '@/redux/slice/NextSlice';
+import { addToCart, addToFavorite } from '@/redux/slice/NextSlice';
 
 import FormattedPrice from '../formattedPrice/FormattedPrice';
 
@@ -32,10 +32,48 @@ const Products = ({ productData }: any) => {
                 width={300} height={300} src={image} alt='Product' priority />
               <div className='w-12 h-24 absolute bottom-10 right-0 border-[1px] border-gray-400 bg-white rounded-md flex flex-col
               translate-x-20 group-hover:translate-x-0 transition-transform duration-300'>
+                <span
+                  className='w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl
+                bg-transparent hover:bg-amazon_yellow cursor-pointer duration-300'
+                  onClick={() =>
+                    dispatch(
+                      addToCart({
+                        _id: _id,
+                        brand: brand,
+                        category: category,
+                        image: image,
+                        description: description,
+                        isNew: isNew,
+                        oldPrice: oldPrice,
+                        price: price,
+                        title: title,
+                        quantity: 1,
+                      })
+                    )
+                  }>
+                  <HiShoppingCart />
+                </span>
                 <span className='w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl
-                bg-transparent hover:bg-amazon_yellow cursor-pointer duration-300'> <HiShoppingCart /> </span>
-                <span className='w-full h-full border-b-[1px] border-gray-400 flex items-center justify-center text-xl
-                bg-transparent hover:bg-amazon_yellow cursor-pointer duration-300'> <FaHeart /> </span>
+                bg-transparent hover:bg-amazon_yellow cursor-pointer duration-300'
+                onClick={() =>
+                  dispatch(
+                    addToFavorite({
+                      _id: _id,
+                      brand: brand,
+                      category: category,
+                      image: image,
+                      description: description,
+                      isNew: isNew,
+                      oldPrice: oldPrice,
+                      price: price,
+                      title: title,
+                      quantity: 1,
+                    })
+                  )
+                }
+                >
+                  <FaHeart />
+                  </span>
               </div>
               {
                 isNew && <p className='absolute top-0 right-0 text-amazon_blue font-medium text-xs
@@ -54,7 +92,7 @@ const Products = ({ productData }: any) => {
               <button onClick={() =>
                 dispatch(
                   addToCart({
-                    id: _id,
+                    _id: _id,
                     brand: brand,
                     category: category,
                     image: image,
@@ -64,7 +102,9 @@ const Products = ({ productData }: any) => {
                     price: price,
                     title: title,
                     quantity: 1,
-                  }))}
+                  })
+                )
+              }
                 className='h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow hover:text-black duration-300 mt-2'>Add to cart</button>
             </div>
           </div>
