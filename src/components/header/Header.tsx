@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -6,8 +6,10 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { StateProps } from '../../../type';
+import { StateProps, StoreProduct } from '../../../type';
 import { addUser } from '@/redux/slice/NextSlice';
+
+import SearchProducts from '../searchProducts/SearchProducts';
 
 import { BiCaretDown } from 'react-icons/bi';
 import { HiOutlineSearch } from 'react-icons/hi';
@@ -19,12 +21,18 @@ import cartIcon from '../../images/icons/cart-icon.png';
 
 const Header = () => {
 
+    const [allData, setAllData] = useState([]);
     const { data: session } = useSession();
 
-    const { productData, favoriteData, userInfo } = useSelector((state: StateProps) => state.next);
+    const { productData, favoriteData, userInfo, allProducts } = useSelector((state: StateProps) => state.next);
     // console.log(session);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        setAllData(allProducts.allProducts)
+    }, [allProducts]);
+
     useEffect(() => {
         if (session) {
             dispatch(addUser({
@@ -36,17 +44,36 @@ const Header = () => {
         }
     }, [session]);
 
+    // Search area
+    // console.log('All Data:', allData);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log(e.target.value);
+        setSearchQuery(e.target.value);
+    };
+
+    useEffect(() => {
+        const filtered = allData.filter((item: StoreProduct) => item.title.toLocaleLowerCase().includes(searchQuery.toLowerCase()));
+        // console.log(filtered);
+        setFilteredProducts(filtered);
+
+    }, [searchQuery]);
+
     return (
         <div className='w-full h-20 bg-amazon_blue text-light_text sticky top-0 z-50 '>
             <div className='h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4'>
                 {/* Logo */}
+
                 <Link href={'/'}
-                    target='_blank'
                     className='px-2 border border-transparent hover:border-white cursor-pointer duration-300
                 flex items-center justify-center h-[70%]'>
-                    <Image className='w-28 object-cover mt-1' src={logo} alt='logo' />
+                    <Image className='w-28 object-cover mt-1' src={logo} alt='logo' priority />
                 </Link>
+
                 {/* Delivery */}
+
                 <div className='px-2 border border-transparent hover:border-white cursor-pointer duration-300
                 items-center justify-center h-[70%] hidden xl:inline-flex gap-1'>
                     <SlLocationPin />
@@ -55,9 +82,13 @@ const Header = () => {
                         <p className='text-white font-bold '>Azerbaijan</p>
                     </div>
                 </div>
+
                 {/* Searchbar */}
+
                 <div className='flex-1 h-10 hidden md:inline-flex items-center justify-between relative'>
                     <input
+                        onChange={handleSearch}
+                        value={searchQuery}
                         className='w-full h-full rounded-md px-2 placeholder:text-sm text-base text-black
                         border-[3px] border-transparent outline-none focus-visible:border-amazon_yellow'
                         type="text"
@@ -67,7 +98,57 @@ const Header = () => {
                     justify-center absolute right-0 rounded-tr-md rounded-br-md'>
                         <HiOutlineSearch />
                     </span>
+
+                    {/* Search field */}
+
+                    {
+                        searchQuery &&
+                        <div className='absolute left-0 top-12 w-full mx-auto max-h-96 bg-gray-200 rounded-lg
+                        overflow-y-scroll cursor-pointer text-black '>
+                            {
+                                filteredProducts.length > 0 ? (
+                                    <>
+                                        {
+                                            searchQuery && filteredProducts.map((item: StoreProduct) => (
+                                                <Link
+                                                    className='w-full border-b-[1px] border-b-gray-400
+                                                    flex items-center gap-4'
+                                                    key={item._id}
+                                                    href={{
+                                                        pathname: `${item._id}`,
+                                                        query: {
+                                                            _id: item._id,
+                                                            brand: item.brand,
+                                                            category: item.category,
+                                                            image: item.image,
+                                                            description: item.description,
+                                                            isNew: item.isNew,
+                                                            oldPrice: item.oldPrice,
+                                                            price: item.price,
+                                                            title: item.title,
+                                                        }
+                                                    }}
+                                                    onClick={() => setSearchQuery('')}
+                                                >
+                                                    <SearchProducts item={item} />
+                                                </Link>
+                                            ))
+                                        }
+                                    </>
+                                ) : (
+                                    <div className='bg-gray-100 flex items-center justify-center py-5
+                                    rounded-lg shadow-lg text-amazon_blue'>
+                                        <p className='text-xl font-semibold animate-bounce'>The product you are looking for is not available. Please, try again</p>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    }
+
+                    {/* Search field */}
+
                 </div>
+
                 {/* SignIn */}
                 {
                     userInfo ? (
@@ -96,8 +177,11 @@ const Header = () => {
                         </div>
                     )
                 }
+
                 {/* Favorite */}
-                <div className='text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white
+                <Link
+                    href={'/favorite'}
+                    className='text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white
                 cursor-pointer duration-300 h-[70%] relative'>
                     <p>Marked</p>
                     <p className='text-white font-bold '>& Favorite</p>
@@ -109,7 +193,7 @@ const Header = () => {
                             {favoriteData.length}
                         </span>
                     }
-                </div>
+                </Link>
                 {/* Cart */}
                 <Link href={'/cart'} className='flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative'>
                     <Image

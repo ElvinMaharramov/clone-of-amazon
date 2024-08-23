@@ -45,9 +45,11 @@ const CartPage = () => {
           <h1 className='text-lg font-medium'>Your cart is empty!</h1>
           <Link href='/'>
             <button className='w-52 h-10 bg-amazon_blue text-white rounded-lg text-sm font-semibold
-            hover:bg-amazon_yellow hover:text-black'>Go to shopping</button>
+            hover:bg-amazon_yellow hover:text-black mt-3'>Go to shopping</button>
           </Link>
-        </div>)}
+        </div>
+      )
+      }
     </div>
   )
 }
