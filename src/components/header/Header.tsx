@@ -14,6 +14,7 @@ import SearchProducts from '../searchProducts/SearchProducts';
 import { BiCaretDown } from 'react-icons/bi';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { SlLocationPin } from 'react-icons/sl';
+import { MdOutlineArrowDropDown } from 'react-icons/md';
 
 import logo from '../../images/logo/amazon-logo.png';
 import cartIcon from '../../images/icons/cart-icon.png';
@@ -29,9 +30,23 @@ const Header = () => {
 
     const dispatch = useDispatch();
 
+    interface Category {
+        category: string;
+        // diğer özellikler varsa buraya ekleyin
+    };
+
+    // const [allCategories, setAllCategories] = useState([]);
+    const [allCategories, setAllCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        setAllCategories(allProducts.allProducts)
+    }, [allProducts]);
+    // console.log(allCategories, 'AAA');
+
     useEffect(() => {
         setAllData(allProducts.allProducts)
     }, [allProducts]);
+
 
     useEffect(() => {
         if (session) {
@@ -61,6 +76,9 @@ const Header = () => {
 
     }, [searchQuery]);
 
+    const [showAll, setShowAll] = useState(false);
+    // console.log(showAll);
+
     return (
         <div className='w-full h-20 bg-amazon_blue text-light_text sticky top-0 z-50 '>
             <div className='h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4'>
@@ -86,10 +104,36 @@ const Header = () => {
                 {/* Searchbar */}
 
                 <div className='flex-1 h-10 hidden md:inline-flex items-center justify-between relative'>
+                    <span
+                        className='w-14 h-full bg-gray-200 hover:bg-gray-300 border-2 cursor-pointer duration-300
+                    text-sm text-amazon_blue font-titleFont flex items-center justify-center rounded-tl-md rounded-bl-md
+                    text-gray-500 hover:text-black border-[3px] focus:border-amazon_yellow'
+                        onClick={() => setShowAll(!showAll)}
+                        tabIndex={0}
+                    >
+                        All <span></span>
+                        <MdOutlineArrowDropDown className='text-xl' />
+                    </span>
+                    {
+                        showAll && (
+                            <div className='absolute w-56 h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden bg-white border-[1px]
+                            border-amazon_blue text-black p-2 z-50absolute w-56 h-80 top-10 left-0 overflow-y-scroll overflow-x-hidden
+                            bg-white border-[1px] border-amazon_blue text-black p-2 flex-col gap-1 z-50'>
+                                <ul className='flex flex-col gap-1'>
+                                    {allCategories.map((item: Category, _id: number) => (
+                                        <li key={_id} className='text-medium tracking-wide font-titleFont hover:bg-[#0085B8]
+                                        cursor-pointer hover:font-semibold'>
+                                            {item.category}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )
+                    }
                     <input
                         onChange={handleSearch}
                         value={searchQuery}
-                        className='w-full h-full rounded-md px-2 placeholder:text-sm text-base text-black
+                        className='w-full h-full rounded-tr-md rounded-br-md px-2 placeholder:text-sm text-base text-black
                         border-[3px] border-transparent outline-none focus-visible:border-amazon_yellow'
                         type="text"
                         placeholder='Search Amazon Clone'

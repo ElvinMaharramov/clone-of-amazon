@@ -49,6 +49,7 @@ export const getServerSideProps = async () => {
   return { props: { productData } }
 };
 
+
 /* İstifadə edə biləcəyim free e-commerce API'lər:
 https://fakestoreapi.com/products
 https://fakestoreapiserver.reactbd.com/tech */
