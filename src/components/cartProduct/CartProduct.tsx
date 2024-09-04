@@ -40,6 +40,7 @@ const CartProduct = ({ item }: cartProductsProps) => {
         width={150}
         height={150}
         className='object-cover'
+        priority
       />
 
       <div className='flex items-center px-2 gap-4'>

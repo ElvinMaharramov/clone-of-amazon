@@ -239,7 +239,7 @@ const Header = () => {
                     }
                 </Link>
                 {/* Cart */}
-                <Link href={'/cart'} className='flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative'>
+                <Link href={'/Cart'} className='flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] relative'>
                     <Image
                         className='w-auto object-cover h-8'
                         src={cartIcon}

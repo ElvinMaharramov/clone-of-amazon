@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 const Products = ({ productData }: any) => {
 
-  console.log(productData);
+  // console.log(productData);
 
   const dispatch = useDispatch();
 
