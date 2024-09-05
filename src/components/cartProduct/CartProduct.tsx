@@ -37,9 +37,9 @@ const CartProduct = ({ item }: cartProductsProps) => {
       <Image
         src={item.image}
         alt='ProductImage'
-        width={150}
-        height={150}
-        className='object-cover'
+        width={120}
+        height={120}
+        className='w-auto h-auto object-cover'
         priority
       />
 
@@ -54,7 +54,7 @@ const CartProduct = ({ item }: cartProductsProps) => {
               <FormattedPrice amount={item.price} />
             </span>
           </p>
-          <div className='flex items-center gap-6'>
+          <div className='flex items-center gap-6 py-1'>
 
             <div className='flex items-center mt-1 justify-between border border-gray-300 px-4 py-1 rounded-full
             w-28 shadow-lg shadow-gray-300'>

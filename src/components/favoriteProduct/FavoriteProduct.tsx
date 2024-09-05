@@ -34,8 +34,9 @@ const FavoriteProduct = ({ item }: favoriteProductProps) => {
             <Image
                 src={item.image}
                 alt='Product image'
-                width={150}
-                height={150}
+                width={120}
+                height={120}
+                className='w-auto h-auto'
                 priority
             />
 
