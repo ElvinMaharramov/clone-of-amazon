@@ -20,6 +20,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-spinners": "^0.14.1",
     "redux-persist": "^6.0.0",
+    "sass": "^1.78.0",
     "sharp": "^0.33.4",
     "stripe": "^16.8.0"
   },

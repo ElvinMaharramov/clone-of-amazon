@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import RootLayout from "@/components/rootLayout/RootLayout";
 
 import "@/styles/globals.css";
+import '@/styles/responsive.scss';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import SessionWrapper from "@/components/sessionWrapper/SessionWrapper";
 

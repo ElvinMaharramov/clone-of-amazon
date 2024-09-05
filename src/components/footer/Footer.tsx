@@ -6,7 +6,7 @@ import logo from '../../images/logo/amazon-logo.png';
 
 const Footer = () => {
   return (
-    <div className='w-full h-20 bg-amazon_light text-gray-300 flex items-center justify-center gap-4'>
+    <div className='w-full h-20 bg-amazon_light text-gray-300 flex items-center justify-center gap-4 footer-responsive-class'>
       <Image
         className='w-24'
         src={logo}

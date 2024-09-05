@@ -197,7 +197,7 @@ const Header = () => {
                 {
                     userInfo ? (
                         <div className='flex items-center px-2 border border-transparent hover:border-white
-                    cursor-pointer duration-300 h-[70%] gap-1'>
+                    cursor-pointer duration-300 h-[70%] gap-1 user-responsive-class'>
                             <img
                                 src={userInfo.image}
                                 alt="userImage"

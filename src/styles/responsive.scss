@@ -1,0 +1,17 @@
+.responsive-class{
+    @media(max-width: 667px){
+        display: none;
+    }
+}
+
+.user-responsive-class{
+    @media(max-width: 561px){
+        display: none;
+    }
+}
+
+.footer-responsive-class{
+    @media(max-width: 425px){
+        font-size: 12px;
+    }
+}

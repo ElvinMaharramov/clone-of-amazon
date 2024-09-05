@@ -19,7 +19,7 @@ const HeaderBottom = () => {
     };
 
     return (
-        <div className='w-full h-10 bg-amazon_light text-sm text-white px-4 flex items-center'>
+        <div className='w-full h-10 bg-amazon_light text-sm text-white px-4 flex items-center responsive-class'>
             <p className='flex items-center gap-1 h-8 px-2 border border-transparent hover:border-white
             hover:text-amazon_yellow cursor-pointer duration-300'>
                 <LuMenu className='text-xl hover:amazon_yellow' /> All
