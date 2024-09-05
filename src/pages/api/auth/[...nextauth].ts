@@ -14,10 +14,10 @@ export const authOptions = {
     }),
     // Diğer sağlayıcılar ekleyebilirsiniz
   ],
-/*   pages: {
+  pages: {
     signIn: '/auth/signin',  // Giriş sayfanızı belirleyin
     // Diğer sayfalar varsa buraya ekleyin
-  }, */
+  },
   // Diğer NextAuth yapılandırmaları
 };
 
