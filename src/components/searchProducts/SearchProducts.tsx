@@ -25,6 +25,7 @@ const SearchProducts = ({ item }: Item) => {
                 src={item.image}
                 alt="Product Image"
                 className='w-24'
+                loading='lazy'
             />
             <div className=''>
                 <p className='text-xs -mb-1'>{item.brand}-{item.category}</p>

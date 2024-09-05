@@ -57,7 +57,7 @@ const Header = () => {
             })
             );
         }
-    }, [session]);
+    }, [session, dispatch]);
 
     // Search area
     // console.log('All Data:', allData);
@@ -74,7 +74,7 @@ const Header = () => {
         // console.log(filtered);
         setFilteredProducts(filtered);
 
-    }, [searchQuery]);
+    }, [searchQuery, allData]);
 
     const [showAll, setShowAll] = useState(false);
     // console.log(showAll);
@@ -202,6 +202,7 @@ const Header = () => {
                                 src={userInfo.image}
                                 alt="userImage"
                                 className='w-8 h-8 rounded-full object-cover'
+                                loading="lazy"
                             />
                             <div className='text-xs text-gray-100 flex flex-col justify-between '>
                                 <p className='text-white font-bold'>{userInfo.name}</p>

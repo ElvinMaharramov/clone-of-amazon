@@ -19,7 +19,7 @@ export default function Home({ productData }: Props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setAllProducts({allProducts:productData}));
-  }, [productData]);
+  }, [productData, dispatch]);
 
   return (
     <main>

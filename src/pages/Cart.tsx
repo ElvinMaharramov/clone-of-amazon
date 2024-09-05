@@ -25,8 +25,8 @@ const CartPage = () => {
             </div>
 
             <div className='pt-2 flex flex-col gap-2'>
-              {productData.map((item: StoreProduct) => (
-                <div key={item._id}>
+              {productData.map((item: StoreProduct, index: number) => (
+                <div key={index}>
                   <CartProduct item={item} />
                 </div>
               ))}
